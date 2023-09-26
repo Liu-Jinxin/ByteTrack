@@ -224,7 +224,6 @@ class BYTETracker(object):
         # Predict the current location with KF
         STrack.multi_predict(strack_pool)
         dists = matching.iou_distance(strack_pool, detections)
-        print("dists", dists)
         # if not self.args.mot20:
         #    dists = matching.fuse_score(dists, detections)
         matches, u_track, u_detection = matching.linear_assignment(
@@ -304,8 +303,6 @@ class BYTETracker(object):
             if self.frame_id - track.end_frame > self.max_time_lost:
                 track.mark_removed()
                 removed_stracks.append(track)
-
-        # print('Ramained match {} s'.format(t4-t3))
 
         self.tracked_stracks = [
             t for t in self.tracked_stracks if t.state == TrackState.Tracked
